@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eye Disease Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 6px;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Eye Disease Prediction</h2>
+    <form id="predict-form">
+      <label for="image">Upload Retinal Image:</label>
+      <input type="file" id="image" name="image" accept="image/*" required />
+
+      <label for="symptoms">Enter Symptoms:</label>
+      <textarea id="symptoms" name="symptoms" rows="4" placeholder="Blurred vision, eye pain..." required></textarea>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("predict-form");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      const ngrokURL = "https://3aaa-34-168-250-192.ngrok-free.app"; // Replace with your actual ngrok URL
+
+      try {
+        const response = await fetch(`${ngrokURL}/predict`, {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) throw new Error("Prediction failed");
+
+        const data = await response.json();
+        resultDiv.innerText = `Predicted Disease: ${data.prediction}\nSymptoms: ${data.symptoms}`;
+      } catch (error) {
+        console.error("Prediction error:", error);
+        resultDiv.innerText = "An error occurred. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>
