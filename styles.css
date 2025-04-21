@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +20,6 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Styles */
 h2 {
     color: #2c3e50;
     text-align: center;
@@ -88,7 +86,6 @@ button:hover {
     background-color: #2980b9;
 }
 
-/* Result Section */
 #result {
     margin-top: 30px;
     padding: 20px;
@@ -103,7 +100,6 @@ button:hover {
     border-radius: 5px;
 }
 
-/* Download Button */
 .download-btn {
     margin-top: 20px;
     background-color: #27ae60;
@@ -113,12 +109,16 @@ button:hover {
     background-color: #219a52;
 }
 
-/* Report Template Styles */
 #report-template {
-    background-color: white;
-    padding: 40px;
-    max-width: 210mm;
-    margin: 0 auto;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+    box-sizing: border-box;
+    background: white;
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 .report-header {
@@ -128,6 +128,9 @@ button:hover {
 
 .report-content {
     line-height: 1.6;
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
 }
 
 .report-content h3 {
@@ -151,7 +154,6 @@ button:hover {
     text-align: right;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .container {
         padding: 20px;
@@ -164,15 +166,22 @@ button:hover {
 }
 
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  #report-template, #report-template * {
-    visibility: visible;
-  }
-  #report-template {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+    #report-template {
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        padding: 15mm !important;
+        width: 210mm !important;
+    }
+
+    .report-content {
+        break-inside: avoid;
+    }
+
+    .diagnosis {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
 }

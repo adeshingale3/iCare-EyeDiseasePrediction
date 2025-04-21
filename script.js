@@ -2,129 +2,264 @@ const form = document.getElementById("predict-form");
 const resultDiv = document.getElementById("result");
 const downloadBtn = document.getElementById("downloadReport");
 
+let formDataStore;
+let predictionDataStore;
+
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
+    e.preventDefault();
+    const formData = new FormData(form);
+    formDataStore = formData;
 
-  const ngrokURL = "https://17d1-34-139-245-220.ngrok-free.app"; // Replace with your actual ngrok URL
+    const ngrokURL = "https://8dcd-34-125-1-44.ngrok-free.app";
 
-  try {
-    const response = await fetch(`${ngrokURL}/predict`, {
-      method: "POST",
-      body: formData
-    });
+    try {
+        const response = await fetch(`${ngrokURL}/predict`, {
+            method: "POST",
+            body: formData
+        });
 
-    if (!response.ok) throw new Error("Prediction failed");
+        if (!response.ok) throw new Error("Prediction failed");
 
-    const data = await response.json();
-    resultDiv.innerHTML = `
-      <h3>Prediction Results</h3>
-      <p><strong>Patient Name:</strong> ${formData.get('name')}</p>
-      <p><strong>Predicted Disease:</strong> ${data.prediction}</p>
-      <p><strong>Symptoms:</strong> ${data.symptoms}</p>
-    `;
-    
-    // Show download button
-    downloadBtn.style.display = "block";
-    
-    // Update report template with current data
-    await updateReportTemplate(formData, data);
-  } catch (error) {
-    console.error("Prediction error:", error);
-    resultDiv.innerHTML = "<p class='error'>An error occurred. Please try again.</p>";
-    downloadBtn.style.display = "none";
-  }
+        const data = await response.json();
+        predictionDataStore = data;
+
+        resultDiv.innerHTML = `
+            <h3>Prediction Results</h3>
+            <p><strong>Patient Name:</strong> ${formData.get('name')}</p>
+            <p><strong>Predicted Disease:</strong> ${data.prediction}</p>
+            <p><strong>Symptoms:</strong> ${data.symptoms}</p>
+        `;
+
+        downloadBtn.style.display = "block";
+    } catch (error) {
+        console.error("Prediction error:", error);
+        resultDiv.innerHTML = "<p class='error'>An error occurred. Please try again.</p>";
+        downloadBtn.style.display = "none";
+    }
 });
 
-// Handle download button click
 downloadBtn.addEventListener("click", async () => {
-  const element = document.getElementById("report-template");
-  
-  // Make the report template visible temporarily
-  element.style.display = "block";
-  
-  // Wait for a short time to ensure all content is rendered
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: 'eye_disease_report.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-      scale: 2,
-      useCORS: true,
-      logging: true,
-      allowTaint: true,
-      onclone: function(clonedDoc) {
-        const reportTemplate = clonedDoc.getElementById('report-template');
-        reportTemplate.style.display = 'block';
-        reportTemplate.style.visibility = 'visible';
-        reportTemplate.style.position = 'static';
-        reportTemplate.style.width = '210mm';
-        reportTemplate.style.padding = '20mm';
-        reportTemplate.style.backgroundColor = 'white';
-      }
-    },
-    jsPDF: { 
-      unit: 'mm', 
-      format: 'a4', 
-      orientation: 'portrait'
-    }
-  };
+    try {
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, ImageRun, AlignmentType } = docx;
 
-  try {
-    await html2pdf().set(opt).from(element).save();
-  } catch (error) {
-    console.error("PDF generation error:", error);
-    alert("Error generating PDF. Please try again.");
-  } finally {
-    // Hide the report template again
-    element.style.display = "none";
-  }
+        // Convert image to base64
+        const imageInput = document.getElementById("image");
+        let imageBase64 = null;
+        
+        if (imageInput.files && imageInput.files[0]) {
+            imageBase64 = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(imageInput.files[0]);
+            });
+        }
+
+        const doc = new Document({
+            sections: [{
+                properties: {},
+                children: [
+                    new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                            new TextRun({
+                                text: "Vision Care Hospital",
+                                bold: true,
+                                size: 28,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                            new TextRun({
+                                text: "123 Medical Center Drive, City, State - 12345",
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                            new TextRun({
+                                text: "Phone: (123) 456-7890 | Email: info@visioncare.com",
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [
+                            new TextRun({
+                                text: "Medical Report",
+                                bold: true,
+                                size: 26,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: "Patient Information",
+                                bold: true,
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Name: ${formDataStore.get('name')}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Age: ${formDataStore.get('age')}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Gender: ${formDataStore.get('gender')}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Blood Group: ${formDataStore.get('bloodGroup')}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Past Eye Operations: ${formDataStore.get('pastOperations')}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: "Reported Symptoms",
+                                bold: true,
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: formDataStore.get('symptoms'),
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: "Retinal Image",
+                                bold: true,
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    // Add the image if available
+                    ...(imageBase64 ? [
+                        new Paragraph({
+                            alignment: AlignmentType.CENTER,
+                            children: [
+                                new ImageRun({
+                                    data: imageBase64.split(',')[1], // Remove the data URL prefix
+                                    transformation: {
+                                        width: 400,
+                                        height: 300,
+                                    },
+                                }),
+                            ],
+                        }),
+                    ] : []),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: "Diagnosis",
+                                bold: true,
+                                size: 24,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Predicted Disease: ${predictionDataStore.prediction || 'Not Available'}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: `Time of Checkup: ${new Date().toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}`,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({ text: "" }),
+                    new Paragraph({
+                        alignment: AlignmentType.RIGHT,
+                        children: [
+                            new TextRun({
+                                text: "Dr. John Smith",
+                                bold: true,
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.RIGHT,
+                        children: [
+                            new TextRun({
+                                text: "Consultant Ophthalmologist",
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.RIGHT,
+                        children: [
+                            new TextRun({
+                                text: "Vision Care Hospital",
+                                size: 22,
+                            }),
+                        ],
+                    }),
+                ],
+            }],
+        });
+
+        // Generate and download the document
+        const blob = await Packer.toBlob(doc);
+        saveAs(blob, "eye_disease_report.docx");
+    } catch (error) {
+        console.error("Error generating Word document:", error);
+        alert("Error generating report. Please try again.");
+    }
 });
-
-async function updateReportTemplate(formData, predictionData) {
-  return new Promise((resolve) => {
-    // Update patient information
-    document.getElementById("report-name").textContent = formData.get('name');
-    document.getElementById("report-age").textContent = formData.get('age');
-    document.getElementById("report-gender").textContent = formData.get('gender');
-    document.getElementById("report-blood").textContent = formData.get('bloodGroup');
-    document.getElementById("report-operations").textContent = formData.get('pastOperations');
-    
-    // Update symptoms
-    document.getElementById("report-symptoms").textContent = formData.get('symptoms');
-    
-    // Update diagnosis
-    document.getElementById("report-disease").textContent = predictionData.prediction;
-    
-    // Update checkup time
-    const now = new Date();
-    const timeString = now.toLocaleString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric',
-      hour: '2-digit', 
-      minute: '2-digit'
-    });
-    document.getElementById("checkup-time").textContent = timeString;
-    
-    // Update image if available
-    const imageInput = document.getElementById("image");
-    if (imageInput.files && imageInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const reportImage = document.getElementById("report-image");
-        reportImage.src = e.target.result;
-        reportImage.style.display = "block";
-        // Wait for image to load
-        reportImage.onload = function() {
-          resolve();
-        };
-      };
-      reader.readAsDataURL(imageInput.files[0]);
-    } else {
-      resolve();
-    }
-  });
-}
