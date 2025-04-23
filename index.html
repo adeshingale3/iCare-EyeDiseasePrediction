@@ -7,131 +7,214 @@
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/docx@7.8.2/build/index.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="Home/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="Home/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="Home/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="Home/assets/css/main.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
-  <div class="container">
-    <h2>Eye Disease Prediction</h2>
-    <form id="predict-form">
-      <div class="form-group">
-        <label for="name">Patient Name:</label>
-        <input type="text" id="name" name="name" required placeholder="Enter patient's full name">
-      </div>
-
-      <div class="form-group">
-        <label for="age">Patient Age:</label>
-        <input type="number" id="age" name="age" required min="1" max="120" placeholder="Enter patient's age">
-      </div>
-
-      <div class="form-group">
-        <label for="bloodGroup">Blood Group:</label>
-        <select id="bloodGroup" name="bloodGroup" required>
-          <option value="">Select Blood Group</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Gender:</label>
-        <div class="gender-group">
-          <div class="gender-option">
-            <input type="radio" id="male" name="gender" value="male" required>
-            <label for="male">Male</label>
-          </div>
-          <div class="gender-option">
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">Female</label>
-          </div>
-          <div class="gender-option">
-            <input type="radio" id="other" name="gender" value="other">
-            <label for="other">Other</label>
-          </div>
+  <header id="header" class="header sticky-top">
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+        </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label>Past Eye Operations:</label>
-        <div class="gender-group">
-          <div class="gender-option">
-            <input type="radio" id="operations-yes" name="pastOperations" value="yes" required>
-            <label for="operations-yes">Yes</label>
-          </div>
-          <div class="gender-option">
-            <input type="radio" id="operations-no" name="pastOperations" value="no">
-            <label for="operations-no">No</label>
-          </div>
-        </div>
+    <div class="branding d-flex align-items-center">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <h1 class="sitename">iCare</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="Home/home.html" class="active">Home</a></li>
+            <li><a href="Home/home.html#about">About</a></li>
+            <li><a href="Home/home.html#services">Services</a></li>
+            <li><a href="Home/home.html#departments">Departments</a></li>
+            <li><a href="Home/home.html#doctors">Doctors</a></li>
+            <li><a href="Home/home.html#contact">Contact</a></li>
+            <a class="cta-btn me-3" href="patient-history.html">Patient History</a>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="cta-btn d-none d-sm-block" href="index.html">Check Up</a>
       </div>
+    </div>
+  </header>
 
-      <div class="form-group">
-        <label for="image">Upload Retinal Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" required />
+  <div class="main-container">
+    <div class="image-section-left">
+      <div class="overlay-text">
+        <h1>Vision Care Hospital</h1>
+        <p>Advanced Eye Disease Detection System</p>
       </div>
-
-      <div class="form-group">
-        <label for="symptoms">Enter Symptoms:</label>
-        <textarea id="symptoms" name="symptoms" rows="4" placeholder="Blurred vision, eye pain..." required></textarea>
-      </div>
-
-      <button type="submit">Predict Disease</button>
-    </form>
-
-    <div id="result"></div>
-    <button id="downloadReport" class="download-btn" style="display: none;">Download Report</button>
-  </div>
-
-  <div id="report-template" style="display: none; align-content: flex-start;">
-    <div class="report-header" style=" margin-bottom: 30px;">
-      <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 10px;">Vision Care Hospital</h1>
-      <p style="margin: 5px 0; color: #666;">123 Medical Center Drive, City, State - 12345</p>
-      <p style="margin: 5px 0; color: #666;">Phone: (123) 456-7890 | Email: info@visioncare.com</p>
-      <hr style="border: none; border-top: 2px solid #3498db; margin: 20px 0;">
-      <h2 style="color: #2c3e50;">Medical Report</h2>
     </div>
     
-    <div class="report-content" style="font-size: 14px; line-height: 1.6;">
-      <div class="patient-info" style="margin-bottom: 30px;">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Patient Information</h3>
-        <p><strong>Name:</strong> <span id="report-name"></span></p>
-        <p><strong>Age:</strong> <span id="report-age"></span></p>
-        <p><strong>Gender:</strong> <span id="report-gender"></span></p>
-        <p><strong>Blood Group:</strong> <span id="report-blood"></span></p>
-        <p><strong>Past Eye Operations:</strong> <span id="report-operations"></span></p>
-      </div>
-      
-      <div class="symptoms-info" style="margin-bottom: 30px;">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Reported Symptoms</h3>
-        <p id="report-symptoms"></p>
-      </div>
-      
-      <div class="image-section" style="margin-bottom: 30px;">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Retinal Image</h3>
-        <img id="report-image" src="" alt="Retinal Image" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px; margin: 10px auto; display: block;">
-      </div>
-      
-      <div class="diagnosis" style="margin-bottom: 30px;">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">Diagnosis</h3>
-        <p><strong>Predicted Disease:</strong> <span id="report-disease"></span></p>
-      </div>
-      
-      <div class="checkup-time" style="margin-bottom: 30px;">
-        <p><strong>Time of Checkup:</strong> <span id="checkup-time"></span></p>
-      </div>
-      
-      <div class="doctor-signature" style="text-align: right; margin-top: 50px;">
-        <p style="margin: 5px 0; font-weight: bold;">Dr. John Smith</p>
-        <p style="margin: 5px 0;">Consultant Ophthalmologist</p>
-        <p style="margin: 5px 0;">Vision Care Hospital</p>
+    <div class="form-section-right">
+      <div class="container">
+        <h2>Eye Disease Prediction</h2>
+        <form id="predict-form">
+          <div class="form-group">
+            <label for="name">Patient Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter patient's full name">
+          </div>
+
+          <div class="form-group">
+            <label for="age">Patient Age:</label>
+            <input type="number" id="age" name="age" required min="1" max="120" placeholder="Enter patient's age">
+          </div>
+
+          <div class="form-group">
+            <label for="bloodGroup">Blood Group:</label>
+            <select id="bloodGroup" name="bloodGroup" required>
+              <option value="">Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Gender:</label>
+            <div class="gender-group">
+              <div class="gender-option">
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="other" name="gender" value="other">
+                <label for="other">Other</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Past Eye Operations:</label>
+            <div class="gender-group">
+              <div class="gender-option">
+                <input type="radio" id="operations-yes" name="pastOperations" value="yes" required>
+                <label for="operations-yes">Yes</label>
+              </div>
+              <div class="gender-option">
+                <input type="radio" id="operations-no" name="pastOperations" value="no">
+                <label for="operations-no">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="image">Upload Retinal Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required />
+          </div>
+
+          <div class="form-group">
+            <label for="symptoms">Enter Symptoms:</label>
+            <textarea id="symptoms" name="symptoms" rows="4" placeholder="Blurred vision, eye pain..." required></textarea>
+          </div>
+
+          <button type="submit" class="predict-btn">
+            <span class="button-text">Predict Disease</span>
+            <span class="loading-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>
+          </button>
+        </form>
+
+        <div id="result"></div>
+        <button id="downloadReport" class="download-btn" style="display: none;">
+          <span class="button-text">Download Report</span>
+          <span class="loading-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </span>
+        </button>
       </div>
     </div>
   </div>
 
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span>iCare</span>
+          </a>
+          <p>Your trusted partner in eye care and disease detection.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="Home/home.html">Home</a></li>
+            <li><a href="Home/home.html#about">About us</a></li>
+            <li><a href="Home/home.html#services">Services</a></li>
+            <li><a href="Home/home.html#departments">Departments</a></li>
+            <li><a href="Home/home.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>
+            A108 Adam Street <br>
+            New York, NY 535022<br>
+            United States <br><br>
+            <strong>Phone:</strong> +1 5589 55488 55<br>
+            <strong>Email:</strong> info@example.com<br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iCare</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <script src="Home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="Home/assets/vendor/aos/aos.js"></script>
+  <script src="Home/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="Home/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="Home/assets/js/main.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

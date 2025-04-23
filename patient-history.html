@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient History - Eye Disease Predictor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="Home/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="Home/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="Home/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="Home/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="Home/assets/css/main.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header id="header" class="header sticky-top">
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+        </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="branding d-flex align-items-center">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <h1 class="sitename">iCare</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="Home/home.html">Home</a></li>
+            <li><a href="Home/home.html#about">About</a></li>
+            <li><a href="Home/home.html#services">Services</a></li>
+            <li><a href="Home/home.html#departments">Departments</a></li>
+            <li><a href="Home/home.html#doctors">Doctors</a></li>
+            <li><a href="Home/home.html#contact">Contact</a></li>
+            <div class="navbar-buttons d-flex align-items-center">
+              <a class="cta-btn me-3" href="patient-history.html">Patient History</a>
+              <a class="cta-btn" href="index.html">Check Up</a>
+            </div>
+          </ul>
+          <!-- <i class="mobile-nav-toggle d-xl-none bi bi-list"></i> -->
+        </nav>
+
+        
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="container mt-5">
+      <h2 class="text-center mb-5">Patient History Dashboard</h2>
+      
+      <div class="row mb-5">
+        <div class="col-md-6">
+          <div class="chart-container">
+            <h3>Gender Distribution</h3>
+            <canvas id="genderChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="chart-container">
+            <h3>Disease Frequency</h3>
+            <canvas id="diseaseChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="table-container">
+            <h3>Patient Details</h3>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Blood Group</th>
+                    <th>Past Operations</th>
+                    <th>Predicted Disease</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="patientTableBody">
+                  <!-- Table data will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span>iCare</span>
+          </a>
+          <p>Your trusted partner in eye care and disease detection.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="Home/home.html">Home</a></li>
+            <li><a href="Home/home.html#about">About us</a></li>
+            <li><a href="Home/home.html#services">Services</a></li>
+            <li><a href="Home/home.html#departments">Departments</a></li>
+            <li><a href="Home/home.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>
+            A108 Adam Street <br>
+            New York, NY 535022<br>
+            United States <br><br>
+            <strong>Phone:</strong> +1 5589 55488 55<br>
+            <strong>Email:</strong> info@example.com<br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iCare</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer>
+
+  <script src="Home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="Home/assets/vendor/aos/aos.js"></script>
+  <script src="Home/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="Home/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="Home/assets/js/main.js"></script>
+  <script src="patient-history.js"></script>
+</body>
+</html> 
