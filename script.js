@@ -40,7 +40,7 @@ form.addEventListener("submit", async (e) => {
     const formData = new FormData(form);
     formDataStore = formData;
 
-    const ngrokURL = "https://971c-34-106-92-226.ngrok-free.app";
+    const ngrokURL = "https://af73-35-236-170-244.ngrok-free.app";
 
     const predictButton = form.querySelector('.predict-btn');
     setLoading(predictButton, true);
@@ -105,7 +105,7 @@ downloadBtn.addEventListener("click", async function() {
                         alignment: AlignmentType.CENTER,
                         children: [
                             new TextRun({
-                                text: "Vision Care Hospital",
+                                text: "iCare By KIT's Hospitality",
                                 bold: true,
                                 size: 28,
                             }),
@@ -115,7 +115,7 @@ downloadBtn.addEventListener("click", async function() {
                         alignment: AlignmentType.CENTER,
                         children: [
                             new TextRun({
-                                text: "123 Medical Center Drive, City, State - 12345",
+                                text: "KIT's Hospitality, Gokul Shirgaon, Kolhapur, Maharashtra 416234",
                                 size: 24,
                             }),
                         ],
@@ -124,7 +124,7 @@ downloadBtn.addEventListener("click", async function() {
                         alignment: AlignmentType.CENTER,
                         children: [
                             new TextRun({
-                                text: "Phone: (123) 456-7890 | Email: info@visioncare.com",
+                                text: "Phone: +91 8948675953 | Email: info@kitcoek.com",
                                 size: 24,
                             }),
                         ],
@@ -250,7 +250,7 @@ downloadBtn.addEventListener("click", async function() {
                             }),
                         ],
                     }),
-                    new Paragraph({ text: "" }),
+                    
                     new Paragraph({
                         children: [
                             new TextRun({
@@ -265,12 +265,12 @@ downloadBtn.addEventListener("click", async function() {
                             }),
                         ],
                     }),
-                    new Paragraph({ text: "" }),
+                   
                     new Paragraph({
                         alignment: AlignmentType.RIGHT,
                         children: [
                             new TextRun({
-                                text: "Dr. John Smith",
+                                text: "Dr. Priya Sharma",
                                 bold: true,
                                 size: 22,
                             }),
@@ -280,7 +280,7 @@ downloadBtn.addEventListener("click", async function() {
                         alignment: AlignmentType.RIGHT,
                         children: [
                             new TextRun({
-                                text: "Consultant Ophthalmologist",
+                                text: "Eye Specialist",
                                 size: 22,
                             }),
                         ],
@@ -289,11 +289,81 @@ downloadBtn.addEventListener("click", async function() {
                         alignment: AlignmentType.RIGHT,
                         children: [
                             new TextRun({
-                                text: "Vision Care Hospital",
+                                text: "KIT's Hospitality",
                                 size: 22,
                             }),
                         ],
                     }),
+                    new Paragraph({text : ""}),
+                    
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "Saftey Guidelines",
+                                bold: true,
+                                size: 24,
+                                
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "1. Individuals working in environments with dust, chemicals, or sharp objects should wear appropriate safety glasses or goggles to prevent eye injuries.",
+                                size: 21,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "2. Minimize direct contact with eyes, especially with unwashed hands, to reduce the risk of infections and irritation.",
+                                size: 21,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "3. To prevent digital eye strain, every 20 minutes, look at an object 20 feet away for at least 20 seconds when using digital devices.",
+                                size: 21,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "4. TMaintain proper lighting while reading or working to avoid unnecessary eye strain and fatigue.",
+                                size: 21,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "5. Routine eye check-ups are essential to detect vision problems early and ensure long-term eye health.",
+                                size: 21,
+                            }),
+                        ],
+                    }),
+                    new Paragraph({text: ""}),
+                    new Paragraph({
+                        alignment: AlignmentType.LEFT,
+                        children: [
+                            new TextRun({
+                                text: "Disclaimer: This report is generated by an AI system. Please consult our doctors for a detailed analysis and treatment plan.",
+                                bold: true,
+                                size: 16,
+                            }),
+                        ],
+                    }),
+
                 ],
             }],
         });
