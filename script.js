@@ -40,7 +40,7 @@ form.addEventListener("submit", async (e) => {
     const formData = new FormData(form);
     formDataStore = formData;
 
-    const ngrokURL = "https://7546-35-237-179-239.ngrok-free.app";
+    const ngrokURL = "https://7546-35-237-179-239.ngrok-free.app";  // Replace with your actual ngrok URL
 
     const predictButton = form.querySelector('.predict-btn');
     setLoading(predictButton, true);

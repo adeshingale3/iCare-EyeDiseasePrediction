@@ -49,7 +49,12 @@ npm install
 
 4. Copy this h5 model in you Google Drive:
 ```bash
-npm install
+"https://drive.google.com/file/d/13M-GEOaLdpKRjqpKGJ-Xr55cDiwAZqj7/view?usp=drive_link"
+```
+
+7. After running the 7th cell in Colab Notebook paste ngrok url in script.js:
+```bash
+"Link will Look like this : https://7546-35-237-179-239.ngrok-free.app"
 ```
 
 ## Project Structure
