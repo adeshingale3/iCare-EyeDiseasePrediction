@@ -33,11 +33,21 @@ iCare is an AI-powered eye disease detection platform that helps predict various
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/adeshingale3/iCare.git
-cd iCare
+git clone https://https://github.com/adeshingale3/iCare-EyeDiseasePrediction
+cd iCare-EyeDiseasePrediction
 ```
 
 2. Install dependencies:
+```bash
+npm install
+```
+
+3. Clone this Google Colab Notebook:
+```bash
+"https://colab.research.google.com/drive/1XQv5xX_oZVci8W11xNpnyS8kh6dPOpWe#scrollTo=x4o5wDMGa99Q"
+```
+
+4. Copy this h5 model in you Google Drive:
 ```bash
 npm install
 ```
