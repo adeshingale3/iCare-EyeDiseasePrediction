@@ -28,6 +28,7 @@ iCare is an AI-powered eye disease detection platform that helps predict various
   - Python
   - TensorFlow/PyTorch
   - Flask
+  - MobileNetV2
 
 ## Installation & Setup
 
